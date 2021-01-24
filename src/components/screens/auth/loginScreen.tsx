@@ -7,6 +7,8 @@ import { NormalButton } from '../../shared/normalButton';
 import { LinkButton } from '../../shared/linkButton';
 import { useDispatch } from 'react-redux';
 import { auth, fail } from '../../../redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import colors from '../../../../colors';
 
 export default function Login({
     navigation
@@ -29,51 +31,61 @@ export default function Login({
     }, [])
     return (
         <View style={styles.container}>
-            <Text style={styles.newAccount}>Welcome!</Text>
-            <InputField onChangeText={(text: string) => setEmail(text.replace(/\s/g, ""))} placeholder="Email" secureTextEntry={false} />
-            <InputField onChangeText={(text: string) => setPassword(text.replace(/\s/g, ""))} placeholder="Password" secureTextEntry={true} />
-            <NormalButton onPress={() => checkAuth()} />
-            <NormalButton title="Google" onPress={() => failure()} />
-            <View style={styles.test}>
-                <View style={styles.rowView}>
-                    <Text>Forgot your password?</Text>
-                    <LinkButton onPress={() => navigation.navigate('ResetPassword')} title="Reset Password" />
-                </View>
-                <View style={styles.rowView}>
-                    <Text>Don't have accaunt yet?</Text>
-                    <LinkButton onPress={() => navigation.navigate('RegisterScreen')} title="Register" />
-                </View>
+            <View style={styles.topView}>
+                <Text style={styles.text}>Welcome</Text>
+            </View>
+            <View style={styles.bottomView}>
+                <InputField onChangeText={(text: string) => setEmail(text.replace(/\s/g, ""))} placeholder="Email" secureTextEntry={false} imgSorce={require("../../../assets/mail.png")} />
+                <InputField onChangeText={(text: string) => setPassword(text.replace(/\s/g, ""))} placeholder="Password" secureTextEntry={true} imgSorce={require("../../../assets/pass.png")} />
+
+                <NormalButton onPress={() => checkAuth()} />
+                <NormalButton title="Google" onPress={() => failure()} />
+            </View>
+            <View style={styles.row}>
+                <LinkButton onPress={() => navigation.navigate('ResetPassword')} title="Reset Password" />
+                <LinkButton onPress={() => navigation.navigate('RegisterScreen')} title="Register" />
             </View>
         </View>
     );
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'flex-end',
-        marginHorizontal: 20,
-        justifyContent: 'center',
     },
-    newAccount: {
-        fontSize: 24,
-        alignSelf: "center",
-        color: "#4f4f4f",
-        alignContent: "center",
-        textTransform: "uppercase",
-        fontWeight: 'bold'
-    },
-    rowView: {
-        justifyContent: "flex-start",
-        alignItems: "center",
-        alignContent: "center",
-        flexDirection: 'row',
-        width: "100%",
-        marginVertical: 0
-    },
-    test: {
+    topView: {
+        height: "40%",
+        backgroundColor: colors.mainColor,
+        alignItems: 'center',
         justifyContent: "space-around",
-        marginVertical: 50
+    },
+    bottomView: {
+        flex: 1,
+        backgroundColor: colors.secondaryColor,
+        borderTopEndRadius: 20,
+        borderTopStartRadius: 20,
+        paddingHorizontal: 20,
+        alignItems: 'flex-end',
+    },
+    text: {
+        color: colors.secondaryColor,
+        justifyContent: "space-around",
+        marginVertical: 50,
+        fontSize: 40,
+        fontWeight: "bold",
+        textTransform: "uppercase",
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignSelf: "flex-end",
+        alignItems: "center",
+        backgroundColor: colors.secondaryColor,
+        width: "100%"
+    },
+    slash: {
+        fontSize: 13,
+        color: colors.mainColor,
+        textTransform: "uppercase",
     }
-});
+})

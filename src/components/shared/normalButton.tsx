@@ -1,5 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import colors from '../../../colors';
 
 export const NormalButton = (props: any) => {
     const { title = "Login", style = {}, textStyle = {}, onPress } = props;
@@ -19,11 +20,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginVertical: 10,
-        backgroundColor: "#5861fc",
+        backgroundColor: colors.secondaryColor,
+        borderWidth: 2,
+        borderColor: colors.accentColor
     },
     text: {
-        fontSize: 15,
-        color: "#fff",
-        textTransform: "uppercase",
+        fontSize: 18,
+        color: colors.mainColor
     }
 });

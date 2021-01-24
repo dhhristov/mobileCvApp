@@ -1,5 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import colors from '../../../colors';
 
 export const LinkButton = (props: any) => {
     const { title = "Login", style = {}, textStyle = {}, onPress } = props;
@@ -13,17 +14,15 @@ export const LinkButton = (props: any) => {
 const styles = StyleSheet.create({
     normalButton: {
         display: "flex",
-        width: "40%",
         height: 46,
-        borderRadius: 23,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         justifyContent: "center",
         alignItems: "flex-start",
         backgroundColor: "transparent",
     },
     text: {
-        fontSize: 13,
-        color: "#5861fc",
+        fontSize: 15,
+        color: colors.mainColor,
         textTransform: "uppercase",
     }
 });
