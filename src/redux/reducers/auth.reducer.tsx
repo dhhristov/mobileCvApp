@@ -1,7 +1,7 @@
 import { IUser } from '../../shared/models/user-model';
-import { AUTH_USER, AUTH_FAILURE, AuthTypes, AUTH_SUCCESS } from '../types';
+import { AUTH_USER, AUTH_FAILURE, AuthTypes, AUTH_SUCCESS, LOGOUT } from '../types';
 
-interface IUserState {
+export interface IUserState {
     loading: boolean,
     isAuth: boolean,
     user: IUser,
@@ -41,6 +41,15 @@ export function authReducer(state: IUserState = initialState, action: AuthTypes)
                 loading: initialState.loading,
                 isAuth: true,
                 user: action.payload.user,
+                errorMessage: initialState.errorMessage
+            };
+        }
+        case LOGOUT: {
+            return {
+                ...state,
+                loading: false,
+                isAuth: false,
+                user: initialState.user,
                 errorMessage: initialState.errorMessage
             };
         }

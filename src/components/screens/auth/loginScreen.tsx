@@ -6,7 +6,7 @@ import { InputField } from '../../shared/loginInput';
 import { NormalButton } from '../../shared/normalButton';
 import { LinkButton } from '../../shared/linkButton';
 import { useDispatch } from 'react-redux';
-import { auth, fail } from '../../../redux';
+import { auth } from '../../../redux';
 
 export default function Login({
     navigation
@@ -15,25 +15,20 @@ export default function Login({
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
 
-    function checkAuth() {
-        dispatch(auth())
-    }
-
-    function failure() {
-        dispatch(fail())
+    function checkAuth(name?: string) {
+        dispatch(auth(name))
     }
 
     useEffect(() => {
-        checkAuth(),
-            failure()
+        checkAuth()
     }, [])
     return (
         <View style={styles.container}>
             <Text style={styles.newAccount}>Welcome!</Text>
             <InputField onChangeText={(text: string) => setEmail(text.replace(/\s/g, ""))} placeholder="Email" secureTextEntry={false} />
             <InputField onChangeText={(text: string) => setPassword(text.replace(/\s/g, ""))} placeholder="Password" secureTextEntry={true} />
-            <NormalButton onPress={() => checkAuth()} />
-            <NormalButton title="Google" onPress={() => failure()} />
+            <NormalButton onPress={() => checkAuth(email)} />
+            <NormalButton title="Google" onPress={() => checkAuth()} />
             <View style={styles.test}>
                 <View style={styles.rowView}>
                     <Text>Forgot your password?</Text>

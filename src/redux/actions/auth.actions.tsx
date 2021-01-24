@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_FAILURE, AuthTypes, AUTH_SUCCESS } from "../types"
+import { AUTH_USER, AUTH_FAILURE, AuthTypes, AUTH_SUCCESS, LOGOUT } from "../types"
 import { ActionCreator } from "redux";
 import { IUser } from "../../shared/models/user-model";
 import { authService } from "../../shared/services/auth.service";
@@ -14,10 +14,16 @@ export const success: ActionCreator<AuthTypes> = (user: IUser) => {
     return { type: AUTH_SUCCESS, payload: { user: user } };
 }
 
-export function auth() {
-    return (dispatch: ActionCreator<AuthTypes>) => {
-        dispatch(updateUser());
-        return authService.authUser()
+export const log_out: ActionCreator<AuthTypes> = () => {
+    return { type: LOGOUT };
+}
+
+export function auth(userName?:string) {
+    if(userName) {
+
+        return (dispatch: ActionCreator<AuthTypes>) => {
+            dispatch(updateUser());
+            return authService.authUser()
             .then(
                 response => {
                     dispatch(success(response))
@@ -25,19 +31,19 @@ export function auth() {
                 error => {
                     dispatch(failure('Server error.'))
                 })
-    }
-}
-
-export function fail() {
-    return (dispatch: ActionCreator<AuthTypes>) => {
-        dispatch(updateUser());
-        return authService.authUser()
+            }
+        }
+    else {
+        return (dispatch: ActionCreator<AuthTypes>) => {
+            dispatch(log_out());
+            return authService.logoutUser()
             .then(
                 response => {
-                    dispatch(failure("test"))
+                    dispatch(success(response))
                 },
                 error => {
                     dispatch(failure('Server error.'))
                 })
+            }
     }
 }

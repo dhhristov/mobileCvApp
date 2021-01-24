@@ -3,6 +3,7 @@ import { IUser } from "../../shared/models/user-model"
 export const AUTH_USER = "AUTH_USER"
 export const AUTH_FAILURE = "AUTH_FAILURE"
 export const AUTH_SUCCESS = "AUTH_SUCCESS"
+export const LOGOUT = "LOGOUT"
 
 
 export interface ICV {
@@ -10,7 +11,7 @@ export interface ICV {
     title: string
 }
 
-interface Auth {
+interface AuthUser {
     type: typeof AUTH_USER
 
 }
@@ -25,4 +26,8 @@ interface AuthSuccess {
     payload: { user: IUser }
 }
 
-export type AuthTypes = Auth | AuthFailure | AuthSuccess
+interface Logout {
+    type: typeof LOGOUT
+}
+
+export type AuthTypes = AuthUser | AuthFailure | AuthSuccess | Logout
