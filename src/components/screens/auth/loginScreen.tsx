@@ -6,8 +6,7 @@ import { InputField } from '../../shared/loginInput';
 import { NormalButton } from '../../shared/normalButton';
 import { LinkButton } from '../../shared/linkButton';
 import { useDispatch } from 'react-redux';
-import { auth, fail } from '../../../redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { auth, success } from '../../../redux';
 import colors from '../../../../colors';
 
 export default function Login({
@@ -17,17 +16,12 @@ export default function Login({
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
 
-    function checkAuth() {
-        dispatch(auth())
-    }
-
-    function failure() {
-        dispatch(fail())
+    function checkAuth(name?: string) {
+        dispatch(auth(name))
     }
 
     useEffect(() => {
-        checkAuth(),
-            failure()
+        checkAuth()
     }, [])
     return (
         <View style={styles.container}>
@@ -38,8 +32,8 @@ export default function Login({
                 <InputField onChangeText={(text: string) => setEmail(text.replace(/\s/g, ""))} placeholder="Email" secureTextEntry={false} imgSorce={require("../../../assets/mail.png")} />
                 <InputField onChangeText={(text: string) => setPassword(text.replace(/\s/g, ""))} placeholder="Password" secureTextEntry={true} imgSorce={require("../../../assets/pass.png")} />
 
-                <NormalButton onPress={() => checkAuth()} />
-                <NormalButton title="Google" onPress={() => failure()} />
+                <NormalButton onPress={() => checkAuth("test")} />
+                <NormalButton title="Google" onPress={() => null} />
             </View>
             <View style={styles.row}>
                 <LinkButton onPress={() => navigation.navigate('ResetPassword')} title="Reset Password" />
