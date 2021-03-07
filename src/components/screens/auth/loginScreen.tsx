@@ -16,8 +16,8 @@ export default function Login({
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
 
-    function checkAuth(name?: string) {
-        dispatch(auth(name))
+    function checkAuth() {
+        dispatch(auth())
     }
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Login({
                 <InputField onChangeText={(text: string) => setEmail(text.replace(/\s/g, ""))} placeholder="Email" secureTextEntry={false} imgSorce={require("../../../assets/mail.png")} />
                 <InputField onChangeText={(text: string) => setPassword(text.replace(/\s/g, ""))} placeholder="Password" secureTextEntry={true} imgSorce={require("../../../assets/pass.png")} />
 
-                <NormalButton onPress={() => checkAuth("test")} />
+                <NormalButton onPress={() => checkAuth()} />
                 <NormalButton title="Google" onPress={() => null} />
             </View>
             <View style={styles.row}>

@@ -18,12 +18,11 @@ export const log_out: ActionCreator<AuthTypes> = () => {
     return { type: LOGOUT };
 }
 
-export function auth(userName?:string) {
-    if(userName) {
+export function auth() {
 
-        return (dispatch: ActionCreator<AuthTypes>) => {
-            dispatch(updateUser());
-            return authService.authUser()
+    return (dispatch: ActionCreator<AuthTypes>) => {
+        dispatch(updateUser());
+        return authService.authUser()
             .then(
                 response => {
                     dispatch(success(response))
@@ -31,19 +30,5 @@ export function auth(userName?:string) {
                 error => {
                     dispatch(failure('Server error.'))
                 })
-            }
-        }
-    else {
-        return (dispatch: ActionCreator<AuthTypes>) => {
-            dispatch(log_out());
-            return authService.logoutUser()
-            .then(
-                response => {
-                    dispatch(success(response))
-                },
-                error => {
-                    dispatch(failure('Server error.'))
-                })
-            }
     }
 }
